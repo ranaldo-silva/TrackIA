@@ -1,11 +1,13 @@
-// src/components/QRCode.tsx
 const QRCode = () => {
-    return (
-      <div style={{ padding: '1rem', textAlign: 'center' }}>
-        {/* Adicione o código para gerar o QR code aqui */}
-        <p>Escaneie o QR Code para acessar o itinerário personalizado...</p>
-      </div>
-    );
-  };
-  
-  export default QRCode;
+  return (
+    <div className="flex justify-center mt-4">
+      <img 
+        src="/Image/QrCode.png" // Caminho da Imagem do QrCode
+        alt="QR Code"
+        className="w-auto h-auto max-w-xs max-h-xs object-contain" // Ajusta ao tamanho original da imagem
+      />
+    </div>
+  );
+};
+
+export default QRCode;

@@ -1,5 +1,7 @@
 import Head from "next/head";
 import HomeButton from "@/components/HomeButton";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export default function HorariosTrens() {
   const horarios = [
@@ -13,7 +15,9 @@ export default function HorariosTrens() {
       <Head>
         <title>Horários de Trens</title>
       </Head>
-      <div className="relative"> {/* Adicione relative aqui */}
+
+      <Header />
+      <div className="relative">
         <HomeButton />
         <main className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
           <div className="bg-white rounded-lg shadow-md p-8 w-full max-w-2xl">
@@ -36,6 +40,7 @@ export default function HorariosTrens() {
           </div>
         </main>
       </div>
+      <Footer />
     </>
   );
 }
