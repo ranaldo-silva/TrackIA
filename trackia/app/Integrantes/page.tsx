@@ -20,11 +20,11 @@ const integrantes: Integrante[] = [
     linkedin: 'https://www.linkedin.com/in/ranaldo-jos%C3%A9-da-silva-301955163/',
   },
   {
-    nome: 'Fabricio José da Silva',             //Dev Dados
-    rm: 'RM101010',
+    nome: 'Fabricio Jose da Silva',             //Dev Dados
+    rm: 'RM560694',
     foto: '/Image/IMG-Fabricio.jpg',
     github: 'https://github.com/integrante2',
-    linkedin: 'https://linkedin.com/in/integrante2',
+    linkedin: 'https://www.linkedin.com/in/fabricio-jose-da-silva/',
   },
   {
     nome: 'Lucas da Ressurreição Barbosa',       //Dev Back-End
