@@ -26,13 +26,13 @@ function Footer({ children }: FooterProps) {
       <div className="mt-4 flex justify-center">
         <Link
           href="/Integrantes"
-          className="bg-blue-800 hover:bg-blue-900 text-white py-2 px-4 rounded" // Alterado para azul mais escuro
+          className="bg-blue-800 hover:bg-blue-900 text-white py-2 px-4 rounded" 
         >
           Integrantes
         </Link>
         <Link
           href="/Feedback"
-          className="bg-blue-800 hover:bg-blue-900 text-white py-2 px-4 rounded ml-2" // Alterado para azul mais escuro
+          className="bg-blue-800 hover:bg-blue-900 text-white py-2 px-4 rounded ml-2" 
         >
           Feedback
         </Link>

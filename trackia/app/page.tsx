@@ -27,7 +27,7 @@ export default function Home() {
               label="Português"
               className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded flex items-center"
             >
-              <img src="/Image/brazil.jpg" alt="Bandeira do Brasil" className="w-6 h-6 mr-2" />
+              <img src="/Image/Brasil.png" alt="Bandeira do Brasil" className="w-6 h-6 mr-2" />
               Português
             </Button>
             <Button

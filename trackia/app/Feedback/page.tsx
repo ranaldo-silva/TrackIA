@@ -17,7 +17,7 @@ export default function FeedbackPage() {
         <HomeButton />
     <div className="flex flex-col min-h-screen">
       <header className="bg-gray-100 p-4 flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Formulário de Feedback</h1>
+        <h1 className="text-2xl font-bold">Envie seu Feedback</h1>
       </header>
       <div className="flex-grow flex items-center justify-center p-4">
         <form onSubmit={handleSubmit} className="w-full max-w-2xl">
