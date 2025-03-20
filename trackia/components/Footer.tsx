@@ -23,9 +23,18 @@ function Footer({ children }: FooterProps) {
           <img src="/Image/Linkedin.png" alt="LinkedIn" className="w-6 h-6" />
         </a>
       </div>
-      <div className="mt-4"> 
-        <Link href="/integrantes" className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded">
+      <div className="mt-4 flex justify-center">
+        <Link
+          href="/Integrantes"
+          className="bg-blue-800 hover:bg-blue-900 text-white py-2 px-4 rounded" // Alterado para azul mais escuro
+        >
           Integrantes
+        </Link>
+        <Link
+          href="/Feedback"
+          className="bg-blue-800 hover:bg-blue-900 text-white py-2 px-4 rounded ml-2" // Alterado para azul mais escuro
+        >
+          Feedback
         </Link>
       </div>
       {children}
