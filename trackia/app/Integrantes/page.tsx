@@ -28,7 +28,7 @@ const integrantes: Integrante[] = [
   },
   {
     nome: 'Lucas da Ressurreição Barbosa',       //Dev Back-End
-    rm: 'RM202020',
+    rm: 'RM560179',
     foto: '/Image/IMG-Lucas.jpg',
     github: 'https://github.com/integrante2',
     linkedin: 'https://linkedin.com/in/integrante2',
