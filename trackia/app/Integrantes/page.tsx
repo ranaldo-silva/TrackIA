@@ -31,7 +31,7 @@ const integrantes: Integrante[] = [
     rm: 'RM560179',
     foto: '/Image/IMG-Lucas.jpg',
     github: 'https://github.com/LucasRB-Tec',
-    linkedin: 'https://linkedin.com/in/integrante2',
+    linkedin: 'https://www.linkedin.com/in/lucas-ressurreicao/',
   },
 ];
 
