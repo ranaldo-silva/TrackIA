@@ -13,21 +13,21 @@ interface Integrante {
 
 const integrantes: Integrante[] = [
   {
-    nome: 'Ranaldo José da Silva',
+    nome: 'Ranaldo José da Silva',             //Dev Front-End
     rm: 'RM559210',
     foto: '/Image/IMG-Ronaldo.jpg',
     github: 'https://github.com/Ronaldo511722',
     linkedin: 'https://www.linkedin.com/in/ranaldo-jos%C3%A9-da-silva-301955163/',
   },
   {
-    nome: 'Fabricio José da Silva',
+    nome: 'Fabricio José da Silva',             //Dev Dados
     rm: 'RM101010',
     foto: '/Image/IMG-Fabricio.jpg',
     github: 'https://github.com/integrante2',
     linkedin: 'https://linkedin.com/in/integrante2',
   },
   {
-    nome: 'Lucas Barbosa da Ressurreição',
+    nome: 'Lucas da Ressurreição Barbosa',       //Dev Back-End
     rm: 'RM202020',
     foto: '/Image/IMG-Lucas.jpg',
     github: 'https://github.com/integrante2',
