@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 interface FooterProps {
   children?: React.ReactNode;
@@ -21,6 +22,11 @@ function Footer({ children }: FooterProps) {
         <a href="#" className="mx-2">
           <img src="/Image/Linkedin.png" alt="LinkedIn" className="w-6 h-6" />
         </a>
+      </div>
+      <div className="mt-4"> 
+        <Link href="/integrantes" className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded">
+          Integrantes
+        </Link>
       </div>
       {children}
     </footer>

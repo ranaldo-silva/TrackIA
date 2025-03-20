@@ -20,9 +20,6 @@ export default function Home() {
             <p className="text-lg text-gray-700">
               Transformando sua experiência de viagem com tecnologia e praticidade
             </p>
-            <button className="bg-white text-blue-600 font-bold py-2 px-4 rounded mt-2 border border-blue-600">
-              Conversar com a IA
-            </button>
           </div>
 
           <div className="flex justify-center space-x-4 mb-4">
@@ -30,7 +27,7 @@ export default function Home() {
               label="Português"
               className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded flex items-center"
             >
-              <img src="/brazil.jpg" alt="Bandeira do Brasil" className="w-6 h-6 mr-2" />
+              <img src="/Image/brazil.jpg" alt="Bandeira do Brasil" className="w-6 h-6 mr-2" />
               Português
             </Button>
             <Button
@@ -44,7 +41,7 @@ export default function Home() {
               label="Espanhol"
               className="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded flex items-center"
             >
-              <img src="/spain-flag.png" alt="Bandeira da Espanha" className="w-6 h-6 mr-2" />
+              <img src="/Image/Espanha.png" alt="Bandeira da Espanha" className="w-6 h-6 mr-2" />
               Espanhol
             </Button>
           </div>

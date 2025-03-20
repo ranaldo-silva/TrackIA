@@ -1,5 +1,8 @@
 import Head from "next/head";
 import HomeButton from "@/components/HomeButton";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import "@/app/layout";
 
 export default function MapaSaidas() {
   return (
@@ -7,7 +10,8 @@ export default function MapaSaidas() {
       <Head>
         <title>Mapa das Saídas</title>
       </Head>
-      <div className="relative"> {/* Adicione relative aqui */}
+      <Header />
+      <div>
         <HomeButton />
         <main className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
           <div className="bg-white rounded-lg shadow-md p-8 w-full max-w-2xl">
@@ -16,7 +20,7 @@ export default function MapaSaidas() {
             </h1>
             <div className="flex justify-center">
               <img
-                src="/mapa-saidas.png"
+                src="https://www.metro.sp.gov.br/wp-content/uploads/2023/08/7.VMN_.jpg"
                 alt="Mapa das Saídas"
                 className="max-w-full rounded-lg"
               />
@@ -29,6 +33,7 @@ export default function MapaSaidas() {
           </div>
         </main>
       </div>
+      <Footer />
     </>
   );
 }

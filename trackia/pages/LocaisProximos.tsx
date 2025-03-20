@@ -1,11 +1,14 @@
 import Head from "next/head";
 import HomeButton from "@/components/HomeButton";
+import "@/app/layout";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export default function LocaisProximos() {
   const locais = [
-    { nome: "Restaurante A", distancia: "100m" },
-    { nome: "Cafeteria B", distancia: "200m" },
-    { nome: "Loja C", distancia: "300m" },
+    { nome: "Restaurante Cheiro Bom", distancia: "100m" },
+    { nome: "Cafeteria StarBucks", distancia: "200m" },
+    { nome: "Loja Melissa", distancia: "300m" },
   ];
 
   return (
@@ -13,7 +16,8 @@ export default function LocaisProximos() {
       <Head>
         <title>Locais Próximos</title>
       </Head>
-      <div className="relative"> {/* Adicione relative aqui */}
+      < Header/>
+      <div>
         <HomeButton />
         <main className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
           <div className="bg-white rounded-lg shadow-md p-8 w-full max-w-2xl">
@@ -36,6 +40,7 @@ export default function LocaisProximos() {
           </div>
         </main>
       </div>
+      < Footer/>
     </>
   );
 }
