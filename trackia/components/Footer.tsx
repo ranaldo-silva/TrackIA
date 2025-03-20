@@ -28,13 +28,13 @@ function Footer({ children }: FooterProps) {
           href="/Integrantes"
           className="bg-blue-800 hover:bg-blue-900 text-white py-2 px-4 rounded" 
         >
-          Integrantes
+          Desenvolvedores
         </Link>
         <Link
           href="/Feedback"
           className="bg-blue-800 hover:bg-blue-900 text-white py-2 px-4 rounded ml-2" 
         >
-          Feedback
+          Fale Conosco
         </Link>
       </div>
       {children}
