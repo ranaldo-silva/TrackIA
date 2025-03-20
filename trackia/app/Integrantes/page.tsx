@@ -23,7 +23,7 @@ const integrantes: Integrante[] = [
     nome: 'Fabricio Jose da Silva',             //Dev Dados
     rm: 'RM560694',
     foto: '/Image/IMG-Fabricio.jpg',
-    github: 'https://github.com/integrante2',
+    github: 'https://github.com/FabricioJ0se',
     linkedin: 'https://www.linkedin.com/in/fabricio-jose-da-silva/',
   },
   {
