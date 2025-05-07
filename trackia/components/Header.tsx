@@ -1,14 +1,12 @@
-import Link from "next/link";
 
-function Header() {
+
+export default function Header() {
     return (
-      <header className="bg-[#003366] text-white p-4 flex items-center justify-center">
-        <div className="bg-white p-4 rounded-lg">
-          <img src="/Image/Logo.png" alt="Logo CCR" className="h-12" />
+      <header className="bg-[#af0000] text-white p-7 flex items-center justify-center">
+        <div className="p-4 rounded-lg flex items-center">
+            <img src="/image/logo.png" alt="Logo CCR" className="h-16" />
+            <h1 className="text-4xl font-bold">TRACK IA</h1>
         </div>
-        <h1 className="text-2xl font-bold ml-4">TOTEM TRACK IA CCR</h1>
       </header>
     );
   }
-  
-  export default Header;
