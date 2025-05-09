@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function(){
@@ -14,7 +17,6 @@ export default function(){
             <div className="mt-4 flex justify-center">
                 <Link href="/Integrantes"className="bg-[#740000] hover:bg-[#970000] text-white py-2 px-4 rounded">Desenvolvedores</Link>
                 <Link href="/Feedback" className="bg-[#740000] hover:bg-[#970000] text-white py-2 px-4 rounded ml-2">Fale Conosco</Link>
-                <Link href="/Manutencao"className="bg-[#740000] hover:bg-[#970000] text-white py-2 px-4 rounded ml-2">Área de Manutenção</Link>
             </div>
         </footer>
     )
