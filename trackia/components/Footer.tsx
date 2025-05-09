@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Footer() {
   const [idioma, setIdioma] = useState("pt");
@@ -21,14 +21,17 @@ export default function Footer() {
     pt: {
       desenvolvido: "Desenvolvido pelo Grupo Help Full CCR - 2025",
       desenvolvedores: "Desenvolvedores",
+      manutencao: "Manutenção"
     },
     en: {
       desenvolvido: "Developed by Grupo Help Full CCR - 2025",
       desenvolvedores: "Developers",
+      manutencao: "maintenance"
     },
     es: {
       desenvolvido: "Desarrollado por Grupo Help Full CCR - 2025",
       desenvolvedores: "Desarrolladores",
+      manutencao: "Mantenimiento"
     },
   };
 
@@ -52,9 +55,13 @@ export default function Footer() {
       <div className="mt-4 flex justify-center">
         <Link
           href="/Integrantes"
-          className="bg-[#740000] hover:bg-[#970000] text-white py-2 px-4 rounded"
-        >
+          className="bg-[#740000] hover:bg-[#970000] text-white py-2 px-4 rounded ml-2">
           {textos[idioma].desenvolvedores}
+        </Link>
+        <Link
+          href="/Manutencao"
+          className="bg-[#740000] hover:bg-[#970000] text-white py-2 px-4 rounded ml-2">
+          {textos[idioma].manutencao}
         </Link>
       </div>
     </footer>
