@@ -33,7 +33,7 @@ export default function LocaisProximos() {
     const fetchLocaisProximos = async () => {
       try {
         const response = await axios.get<LocalProximo[]>(
-          "http://127.0.0.1:5000/api/locais-proximos"
+          ""
         );
         setLocaisProximos(response.data);
         setLoading(false);
