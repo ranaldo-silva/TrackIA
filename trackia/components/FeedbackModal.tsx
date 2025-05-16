@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import ApiJava from "@/services/ApiJava";
+import { useEffect, useState } from "react";
 
 interface FeedbackModalProps {
   isOpen: boolean;
@@ -71,20 +71,27 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
       return;
     }
 
-    try {
-      const response = await ApiJava.post("/Faq", {
-        feedback,
-        sugestao,
-        faq_nome: faqNome,
-        language: idioma,
-      });
+    // Log dos dados que estão sendo enviados
+    const payload = {
+      FEEDBACK_: feedback,
+      SUGESTAO: sugestao,
+      NOME_FAQ: faqNome,
+    };
 
-      if (response.status === 201) {
+    console.log("Dados enviados:", payload); // Log para depuração
+
+    try {
+      const response = await ApiJava.post("/Faq", payload);
+
+      console.log("Resposta da API:", response); // Log da resposta da API para depuração
+
+      if (response.status === 200) {
         setEnviado(true);
         setFeedback("");
         setSugestao("");
         setFaqNome("");
       } else {
+        console.error("Erro ao enviar feedback:", response);
         setErroEnvio(textos[idioma].erro);
       }
     } catch (error) {

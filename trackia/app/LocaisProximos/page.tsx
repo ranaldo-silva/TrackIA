@@ -1,8 +1,8 @@
 "use client";
 
+import ApiJava from "@/services/ApiJava";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import ApiJava from "@/services/ApiJava";
 
 interface LocalProximo {
   ID_LOCAL: number;
@@ -92,7 +92,7 @@ export default function LocaisProximos() {
   };
 
   return (
-    <div className="bg-gray-900 text-gray-100 min-h-screen py-8">
+    <div className="bg-white text-black min-h-screen py-8">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="absolute top-4 right-4">
           <Link
@@ -100,7 +100,7 @@ export default function LocaisProximos() {
             {textos[idioma].inicio}
           </Link>
         </div>
-        <h1 className="text-3xl font-bold text-blue-400 mb-6">
+        <h1 className="text-3xl font-bold text-[#740000] mb-6">
           {textos[idioma].titulo}
         </h1>
 
@@ -112,7 +112,7 @@ export default function LocaisProximos() {
         {!loading && !error && locaisProximos.length > 0 ? (
           <div className="shadow-lg rounded-md overflow-hidden bg-gray-800">
             <table className="min-w-full divide-y divide-gray-700">
-              <thead className="bg-gray-700 text-gray-200">
+              <thead className="bg-black text-white">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">ID</th>
                   <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">{textos[idioma].tipo}</th>
@@ -123,7 +123,7 @@ export default function LocaisProximos() {
                   <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">{textos[idioma].diasFuncionamento}</th>
                 </tr>
               </thead>
-              <tbody className="bg-gray-900 divide-y divide-gray-700">
+              <tbody className="bg-gray-600 divide-y divide-gray-700">
                 {locaisProximos.map((local) => (
                   <tr key={local.ID_LOCAL} className="hover:bg-gray-800 transition duration-200">
                     <td className="px-6 py-4 text-sm font-medium text-gray-300">{local.ID_LOCAL}</td>

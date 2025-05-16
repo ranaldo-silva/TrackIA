@@ -1,9 +1,9 @@
 // pages/HorariosTrens.tsx
 "use client";
 
-import { useEffect, useState } from "react";
-import Link from "next/link"; 
 import ApiJava from "@/services/ApiJava"; // instância da API
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 interface HorarioTrem {
   ID_TREM: number;
@@ -21,7 +21,7 @@ const formatarParaMinutos = (hora: string | null | undefined) => {
     }
     return hora;
   }
-  return String(hora); 
+  return String(hora);
 };
 
 const getStatusStyle = (status: string) => {
@@ -65,7 +65,7 @@ export default function HorariosTrens() {
     buscarHorarios();
     window.addEventListener("idiomaAtualizado", carregarIdioma);
     return () => window.removeEventListener("idiomaAtualizado", carregarIdioma);
-  }, [idioma, apiUrlEndpoint]); 
+  }, [idioma, apiUrlEndpoint]);
 
   const textos = {
     pt: {
@@ -107,14 +107,14 @@ export default function HorariosTrens() {
   };
 
   return (
-    <div className="bg-gray-900 text-gray-100 min-h-screen py-8">
+    <div className="bg-white text-black min-h-screen py-8">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="absolute top-4 right-4">
           <Link href="/" className="bg-[#740000] hover:bg-[#970000] text-white py-2 px-4 rounded">
             {textos[idioma].inicio}
           </Link>
         </div>
-        <h1 className="text-3xl font-bold text-indigo-400 mb-6">
+        <h1 className="text-3xl font-bold text-[#740000] mb-6">
           {textos[idioma].conteudo}
         </h1>
 
@@ -126,7 +126,7 @@ export default function HorariosTrens() {
         {!loading && !error && horarios.length > 0 ? (
           <div className="shadow-lg rounded-md overflow-hidden bg-gray-800">
             <table className="min-w-full divide-y divide-gray-700">
-              <thead className="bg-gray-700 text-gray-200">
+              <thead className="bg-black text-white">
                 <tr>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">
                     {textos[idioma].id}
@@ -142,10 +142,10 @@ export default function HorariosTrens() {
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-gray-900 divide-y divide-gray-700">
+              <tbody className="bg-gray-600 divide-y divide-gray-700">
                 {horarios.map((horario, index) => (
                   <tr key={horario.ID_TREM} className="hover:bg-gray-800 transition duration-200">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">
                       {index + 1}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
@@ -164,11 +164,11 @@ export default function HorariosTrens() {
               </tbody>
             </table>
           </div>
-        ):(
-            !loading && !error && (
-              <div className="text-gray-400 italic">{textos[idioma].nenhumHorario}</div>
-            )
+        ) : (
+          !loading && !error && (
+            <div className="text-gray-400 italic">{textos[idioma].nenhumHorario}</div>
           )
+        )
         }
       </div>
     </div>
