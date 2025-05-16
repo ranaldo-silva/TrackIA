@@ -1,10 +1,9 @@
-// services/manutencaoApi.ts
 import axios from 'axios';
 
 const baseURL = "https://pyhon-api.onrender.com";
 
-const manutencaoApi = axios.create({
+const ApiPython = axios.create({
   baseURL: baseURL,
 });
 
-export default manutencaoApi;
+export default ApiPython;

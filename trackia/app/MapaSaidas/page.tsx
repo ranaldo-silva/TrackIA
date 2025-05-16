@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import mapaSaidasApi from "@/services/mapaSaidasApi"; // instância da API correta
+import MapaBarraFunda from "@/components/mapa";
+import ApiJava from "@/services/ApiJava";
 
 interface MapaSaida {
   ID_ESTACAO: number;
@@ -33,7 +34,7 @@ export default function MapaSaidas() {
       setLoading(true);
       setError(null);
       try {
-        const response = await mapaSaidasApi.get<MapaSaida[]>("/Estacao"); // endpoint correto
+        const response = await ApiJava.get<MapaSaida[]>("/Estacao");
         setEstacoes(response.data);
       } catch (error: any) {
         console.error("Erro ao buscar estações:", error);
@@ -84,57 +85,53 @@ export default function MapaSaidas() {
       acessibilidade: "Accesible",
       sim: "Sí",
       nao: "No",
-      nenhumaEstacion: "No se encontraron estaciones.",
+      nenhumaEstacao: "No se encontraron estaciones.",
     },
   };
 
   return (
-    <div className="bg-gray-900 text-gray-100 min-h-screen py-8">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="absolute top-4 right-4">
-          <Link
-            href="/"
-            className="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-md shadow-md transition duration-300"
-          >
-            {textos[idioma].inicio}
-          </Link>
+    <div className="bg-gray-900 text-gray-100 py-8">
+      <div className="absolute top-4 right-4">
+        <Link href="/" className="bg-[#740000] hover:bg-[#970000] text-white py-2 px-4 rounded-md shadow-md transition duration-300">
+          {textos[idioma].inicio}
+        </Link>
+      </div>
+      <div className="flex items-center justify-center px-4 py-8">
+        <div className="bg-white rounded-2xl shadow-xl w-full max-w-[1000px] h-[500px] overflow-hidden">
+          <MapaBarraFunda />
         </div>
-        <h1 className="text-3xl font-bold text-indigo-400 mb-6">
+      </div>
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <h1 className="text-3xl font-bold text-blue-400 mb-6">
           {textos[idioma].titulo}
         </h1>
 
         {loading && (
           <div className="text-gray-400 italic">{textos[idioma].carregando}</div>
         )}
-        {error && <div className="text-red-500">{textos[idioma].erroBuscar}: {error}</div>}
+
+        {error && (
+          <div className="text-red-500">
+            {textos[idioma].erroBuscar}: {error}
+          </div>
+        )}
 
         {!loading && !error && estacoes.length > 0 ? (
           <div className="shadow-lg rounded-md overflow-hidden bg-gray-800">
             <table className="min-w-full divide-y divide-gray-700">
               <thead className="bg-gray-700 text-gray-200">
                 <tr>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider"
-                  >
+                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">
                     {textos[idioma].idEstacao}
                   </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider"
-                  >
+                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">
                     {textos[idioma].nomeEstacao}
                   </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider"
-                  >
+                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">
                     {textos[idioma].localizacao}
                   </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider"
-                  >
+                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">
                     {textos[idioma].acessibilidade}
                   </th>
                 </tr>
@@ -154,8 +151,8 @@ export default function MapaSaidas() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
                       <span
                         className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                          estacao.ACESSIBILIDADE ? "bg-green-500 text-white" : "bg-red-500 text-white"
-                        }`}
+                          estacao.ACESSIBILIDADE ? "bg-green-500" : "bg-red-500"
+                        } text-white`}
                       >
                         {estacao.ACESSIBILIDADE ? textos[idioma].sim : textos[idioma].nao}
                       </span>
@@ -166,7 +163,8 @@ export default function MapaSaidas() {
             </table>
           </div>
         ) : (
-          !loading && !error && (
+          !loading &&
+          !error && (
             <div className="text-gray-400 italic">{textos[idioma].nenhumaEstacao}</div>
           )
         )}

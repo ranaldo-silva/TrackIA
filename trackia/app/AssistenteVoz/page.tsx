@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import InatividadeWrapper from "@/components/InatividadeWrapper";
+import Link from "next/link";
 
 export default function AssistenteVoz() {
   const [transcricao, setTranscricao] = useState("");
@@ -28,6 +29,7 @@ export default function AssistenteVoz() {
       voceDisse: "Você disse:",
       respostaIA: "Resposta da IA:",
       erroIA: "Desculpe, houve um erro ao processar.",
+      inicio: "Inicio"
     },
     en: {
       titulo: "Voice Assistant",
@@ -36,6 +38,7 @@ export default function AssistenteVoz() {
       voceDisse: "You said:",
       respostaIA: "AI Response:",
       erroIA: "Sorry, there was an error processing.",
+      inicio: "Home"
     },
     es: {
       titulo: "Asistente de Voz",
@@ -44,6 +47,7 @@ export default function AssistenteVoz() {
       voceDisse: "Usted dijo:",
       respostaIA: "Respuesta de la IA:",
       erroIA: "Lo siento, hubo un error al procesar.",
+      inicio: "Inicio"
     },
   };
 
@@ -111,6 +115,11 @@ export default function AssistenteVoz() {
   return (
     <InatividadeWrapper>
       <div className="h-screen flex flex-col items-center justify-center text-center p-4">
+        <div className="absolute top-4 right-4">
+          <Link href="/" className="bg-[#740000] hover:bg-[#970000] text-white py-2 px-4 rounded">
+            {textos[idioma].inicio}
+          </Link>
+        </div>
         <h1 className="text-2xl font-bold mb-6">{textos[idioma].titulo}</h1>
 
         <button

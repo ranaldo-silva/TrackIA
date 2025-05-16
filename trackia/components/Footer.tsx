@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import ManutencaoLoginModal from "@/components/ManutencaoLoginModal";
 
 export default function Footer() {
   const [idioma, setIdioma] = useState("pt");
+  const [loginModalAberto, setLoginModalAberto] = useState(false);
 
   useEffect(() => {
     const carregarIdioma = () => {
@@ -58,11 +60,12 @@ export default function Footer() {
           className="bg-[#740000] hover:bg-[#970000] text-white py-2 px-4 rounded ml-2">
           {textos[idioma].desenvolvedores}
         </Link>
-        <Link
-          href="/Manutencao"
-          className="bg-[#740000] hover:bg-[#970000] text-white py-2 px-4 rounded ml-2">
+        <button onClick={() => setLoginModalAberto(true)} className="bg-[#740000] hover:bg-[#970000] text-white py-2 px-4 rounded ml-2">
           {textos[idioma].manutencao}
-        </Link>
+        </button>
+        <ManutencaoLoginModal
+          isOpen={loginModalAberto}
+            onClose={() => setLoginModalAberto(false)}/>
       </div>
     </footer>
   );

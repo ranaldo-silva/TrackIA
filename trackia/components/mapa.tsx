@@ -28,7 +28,7 @@ const MapaBarraFunda = () => {
         />
         <Marker position={barraFundaCoords}>
           <Popup>
-            Estação Palmeiras–Barra Funda 🚉<br />Ponto inicial!
+            Estação Palmeiras-Barra Funda 🚉<br />Ponto inicial!
           </Popup>
         </Marker>
       </MapContainer>
