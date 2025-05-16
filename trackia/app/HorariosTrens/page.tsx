@@ -1,8 +1,9 @@
+// pages/HorariosTrens.tsx
 "use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import axios from "axios";
+import horariosTremApi from "@/services/horariosTremApi"; // instância da API
 
 interface HorarioTrem {
   ID_TREM: number;
@@ -20,7 +21,7 @@ const formatarParaMinutos = (hora: string | null | undefined) => {
     }
     return hora;
   }
-  return String(hora); // Ou "" ou "N/A"
+  return String(hora); 
 };
 
 const getStatusStyle = (status: string) => {
@@ -38,7 +39,7 @@ export default function HorariosTrens() {
   const [horarios, setHorarios] = useState<HorarioTrem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const apiUrl = "https://java-apis-production.up.railway.app/HorarioTrem";
+  const apiUrlEndpoint = "/HorarioTrem"; // endpoint
 
   useEffect(() => {
     const carregarIdioma = () => {
@@ -50,7 +51,7 @@ export default function HorariosTrens() {
       setLoading(true);
       setError(null);
       try {
-        const response = await axios.get<HorarioTrem[]>(apiUrl);
+        const response = await horariosTremApi.get<HorarioTrem[]>(apiUrlEndpoint); // instância da API
         setHorarios(response.data);
       } catch (err: any) {
         console.error("Erro ao buscar horários:", err);
@@ -64,7 +65,7 @@ export default function HorariosTrens() {
     buscarHorarios();
     window.addEventListener("idiomaAtualizado", carregarIdioma);
     return () => window.removeEventListener("idiomaAtualizado", carregarIdioma);
-  }, [idioma, apiUrl]);
+  }, [idioma, apiUrlEndpoint]); 
 
   const textos = {
     pt: {
