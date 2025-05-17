@@ -34,10 +34,7 @@ O roadmap do projeto Track IA pode ser dividido nas seguintes fases:
 1.  **Acesse o Totem:** Localize um totem Track IA em sua estação.
 2.  **Selecione o Idioma:** Escolha seu idioma preferido na tela inicial.
 3.  **Explore as Opções:** Utilize o menu ou o assistente de voz para acessar as informações desejadas.
-4.  **Escaneie o QR Code (Opcional):** Para transferir informações para seu dispositivo móvel, escaneie o QR Code exibido na tela.
+4.  **Escaneie o QR Code (Opcional):** Para visualizar informações das linhas no seu dispositivo móvel, escaneie o QR Code exibido na tela.
 5.  **Envie Feedback (Opcional):** Utilize a opção de feedback para compartilhar sua experiência e sugestões de melhoria.
 
-## Licença
-
-Este projeto é licenciado sob a [LICENÇA].
 
