@@ -84,7 +84,7 @@ const LocaisProximosPage = () => {
   }
 
   if (error) {
-    return <div className="bg-gray-900 text-white p-6 min-h-screen flex items-center justify-center text-red-500">Erro: {error}</div>;
+    return <div className="bg-gray-900 p-6 min-h-screen flex items-center justify-center text-red-500">Erro: {error}</div>;
   }
 
   return (
@@ -207,27 +207,27 @@ const LocalModal = ({ isOpen, onClose, onSave, local }: LocalModalProps) => {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label htmlFor="tipoLocal" className="block text-gray-300 text-sm font-bold mb-2">Tipo:</label>
-              <input type="text" id="tipoLocal" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white" value={tipoLocal} onChange={(e) => setTipoLocal(e.target.value)} required />
+              <input type="text" id="tipoLocal" className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white" value={tipoLocal} onChange={(e) => setTipoLocal(e.target.value)} required />
             </div>
             <div>
               <label htmlFor="nome" className="block text-gray-300 text-sm font-bold mb-2">Nome:</label>
-              <input type="text" id="nome" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white" value={nome} onChange={(e) => setNome(e.target.value)} required />
+              <input type="text" id="nome" className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white" value={nome} onChange={(e) => setNome(e.target.value)} required />
             </div>
             <div>
               <label htmlFor="localizacao" className="block text-gray-300 text-sm font-bold mb-2">Localização:</label>
-              <input type="text" id="localizacao" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white" value={localizacao} onChange={(e) => setLocalizacao(e.target.value)} required />
+              <input type="text" id="localizacao" className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white" value={localizacao} onChange={(e) => setLocalizacao(e.target.value)} required />
             </div>
             <div>
               <label htmlFor="horaAbertura" className="block text-gray-300 text-sm font-bold mb-2">Hora de Abertura:</label>
-              <input type="time" id="horaAbertura" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white" value={horaAbertura} onChange={(e) => setHoraAbertura(e.target.value)} required />
+              <input type="time" id="horaAbertura" className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white" value={horaAbertura} onChange={(e) => setHoraAbertura(e.target.value)} required />
             </div>
             <div>
               <label htmlFor="horaFechamento" className="block text-gray-300 text-sm font-bold mb-2">Hora de Fechamento:</label>
-              <input type="time" id="horaFechamento" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white" value={horaFechamento} onChange={(e) => setHoraFechamento(e.target.value)} required />
+              <input type="time" id="horaFechamento" className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white" value={horaFechamento} onChange={(e) => setHoraFechamento(e.target.value)} required />
             </div>
             <div>
               <label htmlFor="diasFuncionamento" className="block text-gray-300 text-sm font-bold mb-2">Dias de Funcionamento:</label>
-              <input type="text" id="diasFuncionamento" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white" value={diasFuncionamento} onChange={(e) => setDiasFuncionamento(e.target.value)} required />
+              <input type="text" id="diasFuncionamento" className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white" value={diasFuncionamento} onChange={(e) => setDiasFuncionamento(e.target.value)} required />
             </div>
             <div className="flex justify-end">
               <button type="button" onClick={onClose} className="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded mr-2">Cancelar</button>
