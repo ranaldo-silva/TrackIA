@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { enviarAudioParaWatson } from '@/services/apiWatson';
 
 const ComandoDeVoz: React.FC = () => {
   const [gravando, setGravando] = useState(false);
