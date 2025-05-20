@@ -1,146 +1,101 @@
 "use client";
 
-import api from "@/services/ApiPython";
+import ApiPython from "@/services/ApiPython";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-
-interface Usuario {
-  id_usuario: number;
-  nome: string;
-  email: string;
-  senha: string;
-}
+import { useState } from "react";
 
 export default function CadastrarUsuario() {
- 
   const router = useRouter();
-  const [idioma, setIdioma] = useState("pt");
-  const textos = {
-    pt: {
-      titulo: "Cadastrar Funcionário",
-      nome: "Nome completo",
-      email: "Email",
-      senha: "Senha",
-      botao: "Salvar Cadastro",
-      voltar: "← Voltar para lista de funcionários",
-      sucesso: "Funcionário cadastrado com sucesso!",
-      erro: "Erro ao cadastrar funcionário.",
-    },
-    en: {
-      titulo: "Register Employee",
-      nome: "Full name",
-      email: "Email",
-      senha: "Password",
-      botao: "Save Registration",
-      voltar: "← Back to Employee List",
-      sucesso: "Employee registered successfully!",
-      erro: "Error registering employee.",
-    },
-    es: {
-      titulo: "Registrar Empleado",
-      nome: "Nombre completo",
-      email: "Correo electrónico",
-      senha: "Contraseña",
-      botao: "Guardar Registro",
-      voltar: "← Volver a la lista de empleados",
-      sucesso: "¡Empleado registrado con éxito!",
-      erro: "Error al registrar al empleado.",
-    },
+
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+
+  const salvarUsuario = async () => {
+  if (!nome || !email || !senha) {
+    alert("Preencha todos os campos!");
+    return;
+  }
+
+  const novoUsuario = {
+    id_usuario: "", // ← Gatilho pro backend gerar o ID
+    nome: nome,
+    email: email,
+    senha: senha
   };
 
-  const t = textos[idioma];
-
-  const [usuario, setUsuario] = useState<Usuario>({
-    id_usuario: 0,
-    nome: "",
-    email: "",
-    senha: "",
-  });
-
-  function atualizarCampo(campo: keyof Usuario, valor: string) {
-    setUsuario({ ...usuario, [campo]: valor });
+  try {
+    await ApiPython.post("/Manutencao", novoUsuario);
+    alert("Funcionário cadastrado com sucesso!");
+    router.push("/Manutencao/Equipe");
+  } catch (error) {
+    console.error("Erro ao cadastrar:", error);
+    alert("Erro ao cadastrar funcionário.");
   }
-
-  function salvarUsuario() {
-    api
-      .post("/Manutencao", usuario)
-      .then(() => {
-        alert(t.sucesso);
-        router.push("/Manutencao/Equipe");
-      })
-      .catch(() => {
-        alert(t.erro);
-      });
-  }
-
-  useEffect(() => {
-      const lang = localStorage.getItem("idiomaSelecionado") || "pt";
-      setIdioma(lang);
-      }, []);
-    
+  };
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gray-900 p-4">
-      <div className="w-full max-w-md bg-white p-6 rounded-xl shadow-md">
-        <h1 className="text-2xl font-bold text-center mb-6 text-[#740000]">{t.titulo}</h1>
+    <main className="min-h-screen flex items-center justify-center bg-white p-4">
+      <div className="w-full max-w-md bg-white p-6 rounded-xl shadow-md border border-gray-300">
+        <h1 className="text-3xl font-bold text-center mb-6 text-[#740000]">
+          Cadastrar Funcionário
+        </h1>
 
         <form className="space-y-4">
           <div>
             <label htmlFor="nome" className="block font-medium mb-1 text-[#740000]">
-              {t.nome}
+              Nome completo
             </label>
             <input
               id="nome"
               type="text"
-              value={usuario.nome}
-              onChange={(e) => atualizarCampo("nome", e.target.value)}
-              placeholder={t.nome}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#740000]"
             />
           </div>
 
           <div>
             <label htmlFor="email" className="block font-medium mb-1 text-[#740000]">
-              {t.email}
+              Email
             </label>
             <input
               id="email"
               type="email"
-              value={usuario.email}
-              onChange={(e) => atualizarCampo("email", e.target.value)}
-              placeholder={t.email}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#740000]"
             />
           </div>
 
           <div>
             <label htmlFor="senha" className="block font-medium mb-1 text-[#740000]">
-              {t.senha}
+              Senha
             </label>
             <input
               id="senha"
               type="password"
-              value={usuario.senha}
-              onChange={(e) => atualizarCampo("senha", e.target.value)}
-              placeholder={t.senha}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#740000]"
             />
           </div>
 
           <button
             type="button"
             onClick={salvarUsuario}
-            className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 rounded-md transition cursor-pointer"
+            className="w-full bg-[#740000] hover:bg-[#970000] text-white font-semibold py-2 rounded-md transition"
           >
-            {t.botao}
+            Salvar Cadastro
           </button>
 
-          <a
+          <Link
             href="/Manutencao/Equipe"
             className="block text-center text-[#740000] hover:underline mt-2"
           >
-            {t.voltar}
-          </a>
+            ← Voltar para lista de funcionários
+          </Link>
         </form>
       </div>
     </main>
