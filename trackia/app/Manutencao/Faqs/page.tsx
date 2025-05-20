@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 interface Feedback {
-  ID_FAQ: number;
+  idFaq: number;
   FEEDBACK_: string;
   SUGESTAO: string;
   NOME_FAQ: string;
@@ -34,16 +34,21 @@ const VerFeedbacksPage = () => {
     fetchFeedbacks();
   }, []);
 
-  const deletarFeedback = async (id: number) => {
-    try {
-      await ApiJava.delete(`/Faq/${id}`);
-      alert("Feedback deletado com sucesso!");
-      fetchFeedbacks(); // Atualiza a lista
-    } catch (error) {
-      console.error("Erro ao deletar:", error);
-      alert("Erro ao deletar feedback.");
-    }
-  };
+const deletarFeedback = async (id: number) => {
+  console.log("Deletando FAQ:", id);
+
+  try {
+    const response = await ApiJava.delete(`/Faq/${id}`);
+    console.log("Resposta do DELETE:", response);
+    alert("Feedback deletado com sucesso!");
+    fetchFeedbacks();
+  } catch (error: any) {
+    console.error("Erro ao deletar feedback:", error?.response || error);
+    alert("Erro ao deletar feedback.");
+  }
+};
+
+
 
   if (loading) {
     return (
@@ -80,7 +85,7 @@ const VerFeedbacksPage = () => {
         ) : (
           feedbacks.map((fb) => (
             <div
-              key={fb.ID_FAQ}
+              key={fb.idFaq}
               className="p-4 border border-gray-300 rounded-xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 hover:bg-gray-100 transition-all"
             >
               <div>
@@ -90,7 +95,7 @@ const VerFeedbacksPage = () => {
               </div>
 
               <button
-                onClick={() => deletarFeedback(fb.ID_FAQ)}
+                onClick={() => deletarFeedback(fb.idFaq)}
                 className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md text-sm font-semibold transition"
               >
                 Deletar

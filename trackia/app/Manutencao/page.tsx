@@ -23,7 +23,7 @@ export default function ManutencaoMenu() {
         </Link>
 
         <Link
-          href="/Manutencao/ConLocais"
+          href="/Manutencao/Locais"
           className="bg-[#740000] hover:bg-[#970000] text-white py-6 px-4 rounded-2xl shadow-md text-center text-xl font-semibold transition-all duration-300"
         >
           Configuração de Locais Próximos
