@@ -1,6 +1,6 @@
 "use client";
 
-import MapaBarraFunda from "@/components/mapa";
+import MapaBarraFunda from "@/components/MapaBarraFunda/Mapa";
 import ApiJava from "@/services/ApiJava";
 import Link from "next/link";
 import { useEffect, useState } from "react";
