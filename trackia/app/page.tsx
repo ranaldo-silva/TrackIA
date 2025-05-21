@@ -53,7 +53,7 @@ export default function Home() {
 
   return (
     <InatividadeWrapper>
-      {/* Zoom aplicado globalmente a toda a tela */}
+      {/* Zoom aplicado globalmente a toda a tela do Totem*/}
       <div style={{ zoom }} className="relative">
         <main className="p-4 text-center">
           <div className="mb-4">
