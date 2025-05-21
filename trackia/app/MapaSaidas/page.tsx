@@ -55,7 +55,6 @@ export default function MapaSaidas() {
       titulo: "Mapa de Saídas - Estações",
       carregando: "Carregando informações das estações...",
       erroBuscar: "Erro ao carregar informações das estações.",
-      idEstacao: "ID Estação",
       nomeEstacao: "Nome da Estação",
       localizacao: "Localização",
       acessibilidade: "Acessível",
@@ -68,7 +67,6 @@ export default function MapaSaidas() {
       titulo: "Departure Map - Stations",
       carregando: "Loading station information...",
       erroBuscar: "Error loading station information.",
-      idEstacao: "Station ID",
       nomeEstacao: "Station Name",
       localizacao: "Location",
       acessibilidade: "Accessible",
@@ -81,7 +79,6 @@ export default function MapaSaidas() {
       titulo: "Mapa de Salidas - Estaciones",
       carregando: "Cargando información de las estaciones...",
       erroBuscar: "Error al cargar información de las estaciones.",
-      idEstacao: "ID Estación",
       nomeEstacao: "Nombre de la Estación",
       localizacao: "Ubicación",
       acessibilidade: "Accesible",
@@ -125,9 +122,6 @@ export default function MapaSaidas() {
               <thead className="bg-black text-white">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">
-                    {textos[idioma].idEstacao}
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">
                     {textos[idioma].nomeEstacao}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">
@@ -141,9 +135,6 @@ export default function MapaSaidas() {
               <tbody className="bg-gray-600 divide-y divide-gray-700">
                 {estacoes.map((estacao) => (
                   <tr key={estacao.ID_ESTACAO} className="hover:bg-gray-800 transition duration-200">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
-                      {estacao.ID_ESTACAO}
-                    </td>
                     <td className="px-6 py-4 text-sm text-gray-300">
                       {estacao.NOME_ESTACAO}
                     </td>

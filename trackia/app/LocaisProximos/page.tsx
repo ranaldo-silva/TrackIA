@@ -55,7 +55,6 @@ export default function LocaisProximos() {
       carregando: "Carregando locais próximos...",
       erroBuscar: "Erro ao carregar locais próximos",
       tipo: "Tipo",
-      nome: "Nome",
       localizacao: "Localização",
       horaAbertura: "Abertura",
       horaFechamento: "Fechamento",
@@ -68,7 +67,6 @@ export default function LocaisProximos() {
       carregando: "Loading nearby places...",
       erroBuscar: "Error loading nearby places",
       tipo: "Type",
-      nome: "Name",
       localizacao: "Location",
       horaAbertura: "Opening",
       horaFechamento: "Closing",
@@ -81,7 +79,6 @@ export default function LocaisProximos() {
       carregando: "Cargando lugares cercanos...",
       erroBuscar: "Error al cargar lugares cercanos",
       tipo: "Tipo",
-      nome: "Nombre",
       localizacao: "Ubicación",
       horaApertura: "Apertura",
       horaFechamento: "Cierre",
@@ -96,7 +93,9 @@ export default function LocaisProximos() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="absolute top-4 right-4">
           <Link
-            href="/" className="bg-[#740000] hover:bg-[#970000] text-white py-2 px-4 rounded">
+            href="/"
+            className="bg-[#740000] hover:bg-[#970000] text-white py-2 px-4 rounded"
+          >
             {textos[idioma].inicio}
           </Link>
         </div>
@@ -105,7 +104,9 @@ export default function LocaisProximos() {
         </h1>
 
         {loading && (
-          <div className="text-gray-400 italic">{textos[idioma].carregando}</div>
+          <div className="text-gray-400 italic">
+            {textos[idioma].carregando}
+          </div>
         )}
         {error && <div className="text-red-500">{error}</div>}
 
@@ -114,9 +115,8 @@ export default function LocaisProximos() {
             <table className="min-w-full divide-y divide-gray-700">
               <thead className="bg-black text-white">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">ID</th>
+                  {/* Removido ID e Nome */}
                   <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">{textos[idioma].tipo}</th>
-                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">{textos[idioma].nome}</th>
                   <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">{textos[idioma].localizacao}</th>
                   <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">{textos[idioma].horaAbertura}</th>
                   <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">{textos[idioma].horaFechamento}</th>
@@ -126,9 +126,8 @@ export default function LocaisProximos() {
               <tbody className="bg-gray-600 divide-y divide-gray-700">
                 {locaisProximos.map((local) => (
                   <tr key={local.ID_LOCAL} className="hover:bg-gray-800 transition duration-200">
-                    <td className="px-6 py-4 text-sm font-medium text-gray-300">{local.ID_LOCAL}</td>
+                    {/* Removido ID_LOCAL e NOME */}
                     <td className="px-6 py-4 text-sm text-gray-300">{local.TIPO_LOCAL}</td>
-                    <td className="px-6 py-4 text-sm text-gray-300">{local.NOME}</td>
                     <td className="px-6 py-4 text-sm text-gray-300">{local.LOCALIZACAO}</td>
                     <td className="px-6 py-4 text-sm text-gray-300">{local.HORA_ABERTURA}:00</td>
                     <td className="px-6 py-4 text-sm text-gray-300">{local.HORA_FECHAMENTO}:00</td>
@@ -139,8 +138,11 @@ export default function LocaisProximos() {
             </table>
           </div>
         ) : (
-          !loading && !error && (
-            <div className="text-gray-400 italic">{textos[idioma].nenhumLocal}</div>
+          !loading &&
+          !error && (
+            <div className="text-gray-400 italic">
+              {textos[idioma].nenhumLocal}
+            </div>
           )
         )}
       </div>

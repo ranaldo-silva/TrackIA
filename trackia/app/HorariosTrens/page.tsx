@@ -1,7 +1,6 @@
-// pages/HorariosTrens.tsx
 "use client";
 
-import ApiJava from "@/services/ApiJava"; // instância da API
+import ApiJava from "@/services/ApiJava";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -39,7 +38,7 @@ export default function HorariosTrens() {
   const [horarios, setHorarios] = useState<HorarioTrem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const apiUrlEndpoint = "/HorarioTrem"; // endpoint
+  const apiUrlEndpoint = "/HorarioTrem";
 
   useEffect(() => {
     const carregarIdioma = () => {
@@ -51,7 +50,7 @@ export default function HorariosTrens() {
       setLoading(true);
       setError(null);
       try {
-        const response = await ApiJava.get<HorarioTrem[]>(apiUrlEndpoint); // instância da API
+        const response = await ApiJava.get<HorarioTrem[]>(apiUrlEndpoint);
         setHorarios(response.data);
       } catch (err: any) {
         console.error("Erro ao buscar horários:", err);
@@ -71,7 +70,6 @@ export default function HorariosTrens() {
     pt: {
       inicio: "Inicio",
       conteudo: "Horários de Trens",
-      id: "ID",
       partida: "Partida",
       chegada: "Chegada",
       status: "Status",
@@ -83,7 +81,6 @@ export default function HorariosTrens() {
     en: {
       inicio: "Home",
       conteudo: "Train Schedules",
-      id: "ID",
       partida: "Departure",
       chegada: "Arrival",
       status: "Status",
@@ -95,7 +92,6 @@ export default function HorariosTrens() {
     es: {
       inicio: "Inicio",
       conteudo: "Horarios de Trenes",
-      id: "ID",
       partida: "Salida",
       chegada: "Llegada",
       status: "Estado",
@@ -128,9 +124,7 @@ export default function HorariosTrens() {
             <table className="min-w-full divide-y divide-gray-700">
               <thead className="bg-black text-white">
                 <tr>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">
-                    {textos[idioma].id}
-                  </th>
+                  {/* Removido o cabeçalho ID */}
                   <th scope="col" className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider">
                     {textos[idioma].partida}
                   </th>
@@ -143,11 +137,9 @@ export default function HorariosTrens() {
                 </tr>
               </thead>
               <tbody className="bg-gray-600 divide-y divide-gray-700">
-                {horarios.map((horario, index) => (
+                {horarios.map((horario) => (
                   <tr key={horario.ID_TREM} className="hover:bg-gray-800 transition duration-200">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">
-                      {index + 1}
-                    </td>
+                    {/* Removida a célula de ID */}
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                       <span dangerouslySetInnerHTML={{ __html: formatarParaMinutos(horario.HORARIO_PARTIDA) }} /> {textos[idioma].minutos}
                     </td>
@@ -168,8 +160,7 @@ export default function HorariosTrens() {
           !loading && !error && (
             <div className="text-gray-400 italic">{textos[idioma].nenhumHorario}</div>
           )
-        )
-        }
+        )}
       </div>
     </div>
   );
