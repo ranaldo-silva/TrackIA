@@ -1,21 +1,25 @@
 "use client";
-
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 import InatividadeWrapper from "@/components/InatividadeWrapper";
 import Link from "next/link";
+import { processTextCommand } from "@/services/ApiVoz";
 
 export default function AssistenteVoz() {
   const [transcricao, setTranscricao] = useState("");
   const [resposta, setResposta] = useState("");
   const [carregando, setCarregando] = useState(false);
   const [idioma, setIdioma] = useState("pt");
+  const router = useRouter();
+
+  const speechRecognitionRef = useRef<SpeechRecognition | null>(null);
+  const isListeningRef = useRef(false);
 
   useEffect(() => {
     const carregarIdioma = () => {
       const lang = localStorage.getItem("idiomaSelecionado") || "pt";
       setIdioma(lang);
     };
-
     carregarIdioma();
     window.addEventListener("idiomaAtualizado", carregarIdioma);
     return () => window.removeEventListener("idiomaAtualizado", carregarIdioma);
@@ -25,148 +29,183 @@ export default function AssistenteVoz() {
     pt: {
       titulo: "Assistente de Voz",
       botao: "Falar com o Assistente",
-      aguardando: "Aguarde...",
+      aguardando: "Ouvindo...",
+      processando: "Processando...",
       voceDisse: "Você disse:",
       respostaIA: "Resposta da IA:",
-      erroIA: "Desculpe, houve um erro ao processar.",
-      inicio: "Inicio"
+      erroIA: "Desculpe, houve um erro ao processar. Tente novamente.",
+      microfoneNaoDisponivel: "Seu navegador não suporta reconhecimento de voz, ou o microfone não está disponível. Use Chrome ou Edge para melhor compatibilidade.",
+      inicio: "Início",
     },
     en: {
       titulo: "Voice Assistant",
-      botao: "Talk to the Assistant",
-      aguardando: "Please wait...",
+      botao: "Speak to Assistant",
+      aguardando: "Listening...",
+      processando: "Processing...",
       voceDisse: "You said:",
       respostaIA: "AI Response:",
-      erroIA: "Sorry, there was an error processing.",
-      inicio: "Home"
-    },
-    es: {
-      titulo: "Asistente de Voz",
-      botao: "Hablar con el Asistente",
-      aguardando: "Espere...",
-      voceDisse: "Usted dijo:",
-      respostaIA: "Respuesta de la IA:",
-      erroIA: "Lo siento, hubo un error al procesar.",
-      inicio: "Inicio"
-    },
+      erroIA: "Sorry, there was an error processing. Please try again.",
+      microfoneNaoDisponivel: "Your browser does not support voice recognition, or the microphone is not available. Use Chrome or Edge for better compatibility.",
+      inicio: "Home",
+    }
   };
 
-  const reconhecerFala = () => {
-    const SpeechRecognition =
-      (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
-
-    if (!SpeechRecognition) {
-      alert("Seu navegador não suporta reconhecimento de voz.");
+  const iniciarGravacao = () => {
+    if (!('SpeechRecognition' in window) && !('webkitSpeechRecognition' in window)) {
+      setResposta(textos[idioma].microfoneNaoDisponivel);
+      alert(textos[idioma].microfoneNaoDisponivel);
       return;
     }
 
+    setCarregando(true);
+    setTranscricao("");
+    setResposta(textos[idioma].aguardando);
+    isListeningRef.current = true;
+
+    const SpeechRecognition = window.SpeechRecognition || (window as any).webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
-    recognition.lang = idioma === "pt" ? "pt-BR" : idioma === "en" ? "en-US" : "es-ES";
+
+    recognition.continuous = false;
+    recognition.lang = idioma === 'pt' ? 'pt-BR' : 'en-US';
     recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
 
-    recognition.onresult = async (event: any) => {
-      const texto = event.results[0][0].transcript;
-      setTranscricao(texto);
-      await enviarParaIA(texto);
+    recognition.onstart = () => {
+      setCarregando(true);
+      setResposta(textos[idioma].aguardando);
     };
 
-    recognition.onerror = (event: any) => {
-      console.error("Erro no reconhecimento:", event.error);
+    recognition.onresult = async (event) => {
+      const transcript = event.results[0][0].transcript;
+      setTranscricao(transcript);
+      setResposta(textos[idioma].processando);
+
+      try {
+        const apiResponse = await processTextCommand(transcript, idioma);
+        setResposta(apiResponse.response_text);
+        speakText(apiResponse.response_text, idioma);
+
+        // Redirecionamento baseado no conteúdo da resposta
+        const respostaTexto = apiResponse.response_text.toLowerCase();
+        if (idioma === "pt") {
+          if (respostaTexto.includes("horário")) {
+            router.push("/HorariosTrens");
+          } else if (respostaTexto.includes("local")) {
+            router.push("/LocaisProximos");
+          } else if (respostaTexto.includes("mapa") || respostaTexto.includes("estação")) {
+            router.push("/MapaSaidas");
+          }
+        } else {
+          if (respostaTexto.includes("schedule")) {
+            router.push("/HorariosTrens");
+          } else if (respostaTexto.includes("location")) {
+            router.push("/LocaisProximos");
+          } else if (respostaTexto.includes("map") || respostaTexto.includes("station")) {
+            router.push("/MapaSaidas");
+          }
+        }
+
+      } catch (error: any) {
+        console.error("Erro ao processar o texto no backend:", error.message);
+        setResposta(error.message || textos[idioma].erroIA);
+      } finally {
+        setCarregando(false);
+      }
     };
 
+    recognition.onerror = (event) => {
+      setCarregando(false);
+      isListeningRef.current = false;
+      let errorMessage = textos[idioma].erroIA;
+      if (event.error === 'not-allowed') {
+        errorMessage = "Acesso ao microfone negado.";
+      } else if (event.error === 'no-speech') {
+        errorMessage = "Não detectei fala.";
+      } else if (event.error === 'audio-capture') {
+        errorMessage = "Problema com o microfone.";
+      }
+      setResposta(errorMessage);
+    };
+
+    recognition.onend = () => {
+      if (isListeningRef.current) {
+        setTimeout(() => {
+          if (isListeningRef.current) iniciarGravacao();
+        }, 500);
+      } else {
+        setCarregando(false);
+      }
+    };
+
+    speechRecognitionRef.current = recognition;
     recognition.start();
   };
 
-  const enviarParaIA = async (texto: string) => {
-    setCarregando(true);
-    try {
-      const response = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer SUA_CHAVE_OPENAI`,
-        },
-        body: JSON.stringify({
-          model: "gpt-3.5-turbo",
-          messages: [{ role: "user", content: texto }],
-        }),
-      });
-
-      const data = await response.json();
-      const mensagem = data.choices[0].message.content;
-      setResposta(mensagem);
-      falar(mensagem);
-    } catch (err) {
-      console.error("Erro ao conversar com a IA:", err);
-      setResposta(textos[idioma].erroIA);
-    } finally {
-      setCarregando(false);
+  const pararGravacao = () => {
+    if (speechRecognitionRef.current && isListeningRef.current) {
+      isListeningRef.current = false;
+      speechRecognitionRef.current.stop();
     }
+    setCarregando(false);
   };
 
-  const falar = (mensagem: string) => {
-    const synth = window.speechSynthesis;
-    const utterance = new SpeechSynthesisUtterance(mensagem);
-    utterance.lang = idioma === "pt" ? "pt-BR" : idioma === "en" ? "en-US" : "es-ES";
-    synth.speak(utterance);
+  const speakText = (text: string, lang: string) => {
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = lang === 'pt' ? 'pt-BR' : 'en-US';
+      window.speechSynthesis.speak(utterance);
+    }
   };
 
   return (
     <InatividadeWrapper>
-      <div className="h-screen flex flex-col items-center justify-center text-center p-4">
-        <div className="absolute top-4 right-4">
-          <Link href="/" className="bg-[#740000] hover:bg-[#970000] text-white py-2 px-4 rounded">
-            {textos[idioma].inicio}
-          </Link>
+      <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
+        <div className="w-full max-w-lg bg-gray-800 rounded-2xl shadow-2xl p-8 border border-gray-700">
+          <h1 className="text-4xl text-white font-bold mb-8 text-center">{textos[idioma].titulo}</h1>
+
+          <div className="bg-white text-gray-800 rounded-lg shadow-md p-6 mb-6">
+            <p className="text-lg mb-4 text-center font-medium">
+              {carregando
+                ? (isListeningRef.current ? textos[idioma].aguardando : textos[idioma].processando)
+                : textos[idioma].botao}
+            </p>
+
+            <div className="flex justify-center mb-4">
+              <button
+                onClick={isListeningRef.current ? pararGravacao : iniciarGravacao}
+                className={`py-3 px-6 rounded-full text-lg font-semibold transition-all duration-300 ${
+                  isListeningRef.current
+                    ? "bg-red-500 hover:bg-red-600 animate-pulse"
+                    : "bg-blue-500 hover:bg-blue-600"
+                }`}
+                disabled={carregando && !isListeningRef.current}
+              >
+                {isListeningRef.current ? "Parar de Falar" : "Falar com o Assistente"}
+              </button>
+            </div>
+
+            {transcricao && (
+              <div className="mt-6 border-t pt-4 border-gray-300">
+                <h2 className="text-xl font-semibold mb-2">{textos[idioma].voceDisse}</h2>
+                <p className="bg-gray-100 p-3 rounded-md italic">{transcricao}</p>
+              </div>
+            )}
+
+            {resposta && (
+              <div className="mt-6 border-t pt-4 border-gray-300">
+                <h2 className="text-xl font-semibold mb-2">{textos[idioma].respostaIA}</h2>
+                <p className="bg-gray-100 p-3 rounded-md">{resposta}</p>
+              </div>
+            )}
+          </div>
+
+          <div className="text-center">
+            <Link href="/">
+              <span className="text-blue-300 hover:text-blue-100 transition-colors duration-200 underline">
+                {textos[idioma].inicio}
+              </span>
+            </Link>
+          </div>
         </div>
-        <h1 className="text-2xl font-bold mb-6">{textos[idioma].titulo}</h1>
-
-        <button
-          onClick={reconhecerFala}
-          className={`bg-[#af0000] text-white px-6 py-3 rounded hover:bg-[#970000] text-lg flex items-center justify-center gap-2 ${
-            carregando ? "opacity-50 cursor-not-allowed" : ""
-          }`}
-          disabled={carregando}
-        >
-          {carregando && (
-            <svg
-              className="animate-spin h-5 w-5 text-white"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              />
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8v8z"
-              />
-            </svg>
-          )}
-          {carregando ? textos[idioma].aguardando : textos[idioma].botao}
-        </button>
-
-        {transcricao && (
-          <div className="mt-6">
-            <h2 className="font-bold">{textos[idioma].voceDisse}</h2>
-            <p>{transcricao}</p>
-          </div>
-        )}
-
-        {resposta && (
-          <div className="mt-4">
-            <h2 className="font-bold">{textos[idioma].respostaIA}</h2>
-            <p>{resposta}</p>
-          </div>
-        )}
       </div>
     </InatividadeWrapper>
   );
