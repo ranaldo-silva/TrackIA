@@ -54,7 +54,7 @@ export default function Home() {
   return (
     <InatividadeWrapper>
       {/* Zoom aplicado globalmente a toda a tela */}
-      <div style={{ zoom }} className="relative min-h-screen">
+      <div style={{ zoom }} className="relative">
         <main className="p-4 text-center">
           <div className="mb-4">
             <h2 className="text-lg h-4">{textos[idioma].titulo}</h2>
