@@ -34,7 +34,7 @@ export default function TelaEspera() {
   return (
     <div
       className="relative h-screen w-screen bg-cover bg-center flex items-center justify-center"
-      style={{ backgroundImage: "url('/image/fundo-espera.jpg')" }}
+      style={{ backgroundImage: "url('/Image/fundo-espera.jpg')" }}
     >
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
       <div className="relative z-10 text-white text-center px-4">
