@@ -49,10 +49,11 @@ export default function Home() {
           <Linguagens />
           <div className="flex justify-center mt-4">
             <img
-              src="/image/QrCode.png"
-              alt="Qr-Code"
+              src="/Image/QrCode.PNG"
+              alt="QR Code"
               className="w-auto h-auto max-w-xs max-h-xs object-contain"
             />
+
           </div>
           <p>{textos[idioma].qr}</p>
           <BotoesNavegacao />
