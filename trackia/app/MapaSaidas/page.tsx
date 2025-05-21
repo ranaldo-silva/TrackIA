@@ -19,14 +19,16 @@ export default function MapaSaidas() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const carregarIdioma = () => {
-      const lang = localStorage.getItem("idiomaSelecionado") || "pt";
-      setIdioma(lang);
-    };
+    if (typeof window !== "undefined") {
+      const carregarIdioma = () => {
+        const lang = localStorage.getItem("idiomaSelecionado") || "pt";
+        setIdioma(lang);
+      };
 
-    carregarIdioma();
-    window.addEventListener("idiomaAtualizado", carregarIdioma);
-    return () => window.removeEventListener("idiomaAtualizado", carregarIdioma);
+      carregarIdioma();
+      window.addEventListener("idiomaAtualizado", carregarIdioma);
+      return () => window.removeEventListener("idiomaAtualizado", carregarIdioma);
+    }
   }, []);
 
   useEffect(() => {
