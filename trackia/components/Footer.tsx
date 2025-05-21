@@ -51,7 +51,7 @@ export default function Footer() {
           <img src="/Image/instagram.png" alt="Instagram" className="w-10 h-10" />
         </a>
         <a href="#" className="mx-2">
-          <img src="/Image/linkedin.png" alt="LinkedIn" className="w-10 h-10" />
+          <img src="/Image/Linkedin.png" alt="LinkedIn" className="w-10 h-10" />
         </a>
       </div>
       <div className="mt-4 flex justify-center">

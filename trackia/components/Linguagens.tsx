@@ -14,19 +14,19 @@ const Linguagens: React.FC = () => {
         onClick={() => mudarIdioma("pt")}
         className=""
       >
-        <img src="/image/bandeira-do-brasil.png" alt="Português" className="h-15" />
+        <img src="/Image/bandeira-do-brasil.png" alt="Português" className="h-15" />
       </button>
       <button
         onClick={() => mudarIdioma("en")}
         className=""
       >
-        <img src="/image/estados-unidos-da-america.png" alt="Inglês" className="h-15" />
+        <img src="/Image/estados-unidos-da-america.png" alt="Inglês" className="h-15" />
       </button>
       <button
         onClick={() => mudarIdioma("es")}
         className=""
       >
-        <img src="/image/espanha.png" alt="Espanhol" className="h-17" />
+        <img src="/Image/Espanha.png" alt="Espanhol" className="h-17" />
       </button>
     </div>
   );

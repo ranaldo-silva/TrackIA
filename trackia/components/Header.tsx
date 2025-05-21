@@ -8,7 +8,7 @@ export default function Header() {
       <div className="p-4 rounded-lg flex items-center gap-4">
         <Link href="/">
           <img
-            src="/image/logo.png"
+            src="/Image/Logo.png"
             alt="Logo CCR"
             className="h-16 cursor-pointer hover:opacity-80 transition"
           />
